@@ -1,0 +1,34 @@
+Implementation items:
+
+- Stepper motor functionality
+	- 270° of rotation
+	- Calibration
+	- Number of steps?
+- Control of stepper motor via knob or some other basic control mechanism
+	- Really simple linear mapping
+- Tilt sensor functionality
+	- Print to terminal when tilt sensor hits a value
+- Show tilt sensor value via external display
+- Directly control the motor via tilt sensor values
+	- Linear mapping
+- Communicate with Pd
+	- Build Pd patch that shows sensor value
+	- Send a value back and forth
+- Control how the tilt sensor interacts with the motor via Pd
+- Build a flexible Pd patch
+	- Static pedal configs
+	- Configs that depend on the tilt sensor
+	- Configs that depend on an arbitrary sensor in the serial port
+	- Projection of sensor values onto different curves for different responses (exponential, logarithmic, quadratic, etc.)
+	- Future-proofing for more motors
+	- Saveable configs
+- Polish & future features
+	- Create a 3D printed housing
+	- Powered via pedalboard pedal power?
+	- Informative display that shows named configs & whether or not a motor is reading from sensors
+		- Touch screen for changing configs during a performance
+	- Communication with Pd over WiFi or LAN
+	- Built-in configs (NO PD)
+		- Support both!
+		- Framework for coding up built-in configs and flashing the Arduino
+		
