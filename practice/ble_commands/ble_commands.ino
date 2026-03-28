@@ -1,8 +1,8 @@
 #include <SoftwareSerial.h>
 
-const int ENABLE_PIN = 9;
-const int TX_PIN = 10;
-const int RX_PIN = 11;
+const int ENABLE_PIN = 7;
+const int TX_PIN = 5;
+const int RX_PIN = 6;
 
 const unsigned long BAUD_RATE = 38400;
 
