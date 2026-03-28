@@ -1,8 +1,7 @@
 #pragma once
 
-#include "SerialSensorGyro.h"
-
 #include <AccelStepper.h>
+#include <SerialSensorGyro.h>
 
 /**
  * MotorInfo: A class for encapsulating PMC motor behavior & state
@@ -23,16 +22,16 @@ class MotorInfo {
             QUADRATIC = 3
         };
 
-        MotorInfo(int motorNum, AccelStepper& stepper, long maxSteps, SerialSensorGyro& ssg);
+        MotorInfo(int motorNum, AccelStepper stepper, long maxSteps, SerialSensorGyro& ssg);
         
         /**
          * Moves the motor based on the object's state.
          */
-        void move();
+        void run();
 
         int motorNum;
 
-        AccelStepper& stepper;
+        AccelStepper stepper;
         long currentStep = 0;
         long maxSteps;
 
@@ -41,4 +40,4 @@ class MotorInfo {
         Curve curve = Curve::LINEAR;
 
         SerialSensorGyro& ssg;
-}
+};

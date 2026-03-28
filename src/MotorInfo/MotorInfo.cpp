@@ -2,11 +2,12 @@
 
 #define sgn(x) (x < 0 ? -1 : 1)
 
-MotorInfo::MotorInfo(int motorNum, AccelStepper& stepper, long maxSteps, SerialSensorGyro& ssg) {
-    this->motorNum = motorNum;
-    this->stepper = stepper;
-    this->maxSteps = maxSteps;
-    this->ssg = ssg;
+MotorInfo::MotorInfo(int motorNum, AccelStepper stepper, long maxSteps, SerialSensorGyro& ssg) :
+    motorNum(motorNum),
+    stepper(stepper),
+    maxSteps(maxSteps),
+    ssg(ssg)
+{
 }
 
 void MotorInfo::run() {

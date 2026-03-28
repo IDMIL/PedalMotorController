@@ -2,10 +2,14 @@
 
 #include <WiFi.h>
 
+/**
+ * SerialSensorGyro: A class that reads gyroscopic data over a UDP connection with the SerialSensor
+ * app
+ * @author Ian Doherty
+ */
 class SerialSensorGyro {
     public:
-        SerialSensorGyro(WiFiUDP udp);
-        ~SerialSensorGyro();
+        SerialSensorGyro(WiFiUDP& udp);
 
         float getX();
         float getY();

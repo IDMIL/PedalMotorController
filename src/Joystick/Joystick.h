@@ -32,4 +32,4 @@ class Joystick {
         int swPin;
         int xPin;
         int yPin;
-}
+};

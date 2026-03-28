@@ -1,5 +1,7 @@
 #include "Joystick.h"
 
+#include <Arduino.h>
+
 Joystick::Joystick(int swPin, int xPin, int yPin) {
     this->swPin = swPin;
     this->xPin = xPin;

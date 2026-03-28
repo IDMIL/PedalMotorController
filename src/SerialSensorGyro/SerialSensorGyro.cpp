@@ -1,12 +1,8 @@
 #include "SerialSensorGyro.h"
 
-SerialSensorGyro::SerialSensorGyro(WiFiUDP& udp) {
-    this.udp = udp;
-}
-
-SerialSensorGyro::~SerialSensorGyro() {
-    delete this.bf;
-    delete this.currentFrame;
+SerialSensorGyro::SerialSensorGyro(WiFiUDP& udp) :
+    udp(udp)
+{
 }
 
 void SerialSensorGyro::readFrame() {

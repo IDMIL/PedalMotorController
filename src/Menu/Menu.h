@@ -18,17 +18,31 @@ class Menu {
         void printMotorNum();
 
         /**
+         * Clears the last print of changing information given by update().
+         * All changing information is, by default, printed on the second row.
+         */
+        void clearLastPrint();
+
+        /**
          * Writes non-changing menu information to the LCD.
          */
-        virtual void init() = 0;
+        virtual void init();
 
         /**
          * Writes changing menu information to the LCD.
-         * Must be called as much as possible (i.e., in loop()).
+         * Must be called as much as possible (i.e., in loop()) and may modify motor state.
          */
-        virtual void update() = 0;
+        virtual void update();
 
-    private:
+        /**
+         * Returns whether or not an element in the menu is selected.
+         * Not all menus are selectable, so this returns false by default. Selectable menus should
+         * redefine this function.
+         */
+        virtual bool isSelected();
+
+    protected:
         LiquidCrystal& lcd;
         MotorInfo& motor;
+        String lastPrint;
 };
