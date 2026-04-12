@@ -27,16 +27,16 @@ If the user attaches their phone to the guitar headstock, then movements of the 
 
 ## Hardware
 
-#### Fritzing Diagram
+### Fritzing Diagram
 
 ![Fritzing Diagram](assets/Diagram.png)
 
-#### Parts List
+### Parts List
 
 * Arduino GIGA R1 WiFi
 * 4x 28BYJ-48 stepper motors
 * 4x ULN2003 stepper motor drivers
-* LCD1602 2x20 LCD display
+* LCD1602 2x16 LCD display
 * Joystick module
 * Mini breadboard
 * 3-pin potentiometer
@@ -44,5 +44,7 @@ If the user attaches their phone to the guitar headstock, then movements of the 
 ## Credits
 
 Created by Ian Doherty, fall 2025 through winter 2026, at McGill University's Input Devices and Music Interaction Laboratory (IDMIL).
+
+This project was inspired by similar knob-turning devices, including the [Toe-N Control Pedal](https://dukedesigns3d.com/products/toe-n-control-v1-universal-expression-59517), the [Gecko Tool](https://geckotool.com/), and the [Knoblin](https://github.com/narad/knoblin). **The ideas underpinning this project are not novel**; my sole intent is to explore controlling effect automation using *gestures*.
 
 Special thanks to Dr. Marcelo Wanderley for his supervision and Darryl Cameron for his assistance in assembly.
