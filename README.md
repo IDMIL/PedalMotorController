@@ -1,10 +1,20 @@
 # PedalMotorController: An Arduino platform for programmatically turning pedal knobs
 
+![PMC](assets/PMC.jpg)
+
 ## Description
 
 The Pedal Motor Controller (abbreviated PMC) is a project that involves the mechanical turning of guitar pedal knobs for expressive guitar performance. Users can connect their phone over UDP to an Arduino hub that translates their phone's gyroscopic movements into knob turns. The knob turns can then influence music performed with the pedals.
 
 If the user attaches their phone to the guitar headstock, then movements of the guitar will have a direct correlation to sonic output. This is especially relevant for gestural research, as it provides a platform for investigating the relationship between performance gestures and musical style.
+
+## Usage
+
+1. Download the [Serial Sensor](https://play.google.com/store/apps/details?id=com.karl.serialsensor) app on your phone
+2. Turn on the PMC and connect to its WiFi access point on your phone (SSID and password are both "PedalMotorController")
+3. In Serial Sensor, under the Sensors tab, select only **Gyroscope**
+4. Under the Connection tab, select **Network** and input the IP address and port shown on the PMC's display
+5. Press the play button in SerialSensor when you are ready to send data
 
 ## Installation
 
@@ -15,22 +25,20 @@ If the user attaches their phone to the guitar headstock, then movements of the 
 5. Once all zips are installed, make sure the program compiles by clicking the checkmark on the top left (labeled "Verify").
 6. Finally, connect an Arduino GIGA to your computer, select it in the top left, and select Upload.
 
-## Usage
-
-1. Download the [Serial Sensor](https://play.google.com/store/apps/details?id=com.karl.serialsensor) app on your phone
-2. Turn on the PMC and connect to its WiFi access point on your phone (SSID and password are both "PedalMotorController")
-3. In Serial Sensor, under the Sensors tab, select only **Gyroscope**
-4. Under the Connection tab, select **Network** and input the IP address and port shown on the PMC's display
-5. Press the play button in SerialSensor when you are ready to send data
-
 ## Hardware
+
+#### Fritzing Diagram
+
+![Fritzing Diagram](assets/Diagram.png)
+
+#### Parts List
 
 * Arduino GIGA R1 WiFi
 * 4x 28BYJ-48 stepper motors
 * 4x ULN2003 stepper motor drivers
 * LCD1602 2x20 LCD display
 * Joystick module
-* Prototyping breadboard
+* Mini breadboard
 * 3-pin potentiometer
 
 ## Credits
