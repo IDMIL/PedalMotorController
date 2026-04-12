@@ -4,8 +4,9 @@
 
 class StepperAngleMenu : public Menu {
     public:
-        StepperAngleMenu(LiquidCrystal& lcd, MotorInfo& motor);
+        StepperAngleMenu(LiquidCrystal* lcd, MotorInfo* motor);
         
-        virtual void init();
-        virtual void update();
+        void init() override;
+        void update() override;
+        bool isSelected() override { return false; }
 };

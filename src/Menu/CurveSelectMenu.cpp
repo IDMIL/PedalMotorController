@@ -1,6 +1,7 @@
 #include "CurveSelectMenu.h"
+#include <MotorInfo.h>
 
-CurveSelectMenu::CurveSelectMenu(LiquidCrystal& lcd, MotorInfo& motor, Joystick& joystick) : 
+CurveSelectMenu::CurveSelectMenu(LiquidCrystal* lcd, MotorInfo* motor, Joystick* joystick) : 
     Menu(lcd, motor),
     joystick(joystick)
 {
@@ -8,33 +9,33 @@ CurveSelectMenu::CurveSelectMenu(LiquidCrystal& lcd, MotorInfo& motor, Joystick&
 
 void CurveSelectMenu::init() {
     printMotorNum();
-    lcd.print("Curve Selection:");
+    lcd->print("Curve Selection:");
 }
 
 void CurveSelectMenu::update() {
-    if (joystick.getCurrentAction() == Joystick::Action::CLICK) 
+    if (joystick->getCurrentAction() == Joystick::Action::CLICK) 
         selected = !selected;
 
     if (selected) {
-        lcd.blink();
+        lcd->blink();
 
-        switch (joystick.getCurrentAction()) {
+        switch (joystick->getCurrentAction()) {
             case Joystick::Action::N:
-                motor.curve = (MotorInfo::Curve) (((int) motor.curve + 1) % 4);
+                motor->curve = (MotorInfo::Curve) (((int) motor->curve + 1) % 4);
                 break;
             case Joystick::Action::S:
-                motor.curve = (MotorInfo::Curve) (((int) motor.curve - 1) % 4);
+                motor->curve = (MotorInfo::Curve) (((int) motor->curve - 1) % 4);
                 break;
             default:
                 break;
         }
     }
     else
-        lcd.noBlink();
+        lcd->noBlink();
 
     String toPrint;
 
-    switch (motor.curve) {
+    switch (motor->curve) {
         case MotorInfo::Curve::LINEAR:
             toPrint = "Linear";
             break;
@@ -51,7 +52,7 @@ void CurveSelectMenu::update() {
 
     if (!toPrint.equals(lastPrint)) {
         clearLastPrint();
-        lcd.print(toPrint);
+        lcd->print(toPrint);
         lastPrint = toPrint;
     }
 }

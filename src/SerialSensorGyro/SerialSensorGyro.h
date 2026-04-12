@@ -9,7 +9,7 @@
  */
 class SerialSensorGyro {
     public:
-        SerialSensorGyro(WiFiUDP& udp);
+        SerialSensorGyro(WiFiUDP* udp);
 
         float getX();
         float getY();
@@ -32,5 +32,5 @@ class SerialSensorGyro {
 
         ByteFloat bf;
         SerialSensorGyroFrame currentFrame;
-        WiFiUDP& udp;
+        WiFiUDP* udp;
 };

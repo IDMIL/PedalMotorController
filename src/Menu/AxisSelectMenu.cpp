@@ -1,6 +1,7 @@
 #include "AxisSelectMenu.h"
+#include <MotorInfo.h>
 
-AxisSelectMenu::AxisSelectMenu(LiquidCrystal& lcd, MotorInfo& motor, Joystick& joystick) : 
+AxisSelectMenu::AxisSelectMenu(LiquidCrystal* lcd, MotorInfo* motor, Joystick* joystick) : 
     Menu(lcd, motor),
     joystick(joystick)
 {
@@ -8,33 +9,33 @@ AxisSelectMenu::AxisSelectMenu(LiquidCrystal& lcd, MotorInfo& motor, Joystick& j
 
 void AxisSelectMenu::init() {
     printMotorNum();
-    lcd.print("Axis Selection:");
+    lcd->print("Axis Selection:");
 }
 
 void AxisSelectMenu::update() {
-    if (joystick.getCurrentAction() == Joystick::Action::CLICK) 
+    if (joystick->getCurrentAction() == Joystick::Action::CLICK) 
         selected = !selected;
 
     if (selected) {
-        lcd.blink();
+        lcd->blink();
 
-        switch (joystick.getCurrentAction()) {
+        switch (joystick->getCurrentAction()) {
             case Joystick::Action::N:
-                motor.axis = (MotorInfo::Axis) (((int) motor.axis + 1) % 3);
+                motor->axis = (MotorInfo::Axis) (((int) motor->axis + 1) % 3);
                 break;
             case Joystick::Action::S:
-                motor.axis = (MotorInfo::Axis) (((int) motor.axis - 1) % 3);
+                motor->axis = (MotorInfo::Axis) (((int) motor->axis - 1) % 3);
                 break;
             default:
                 break;
         }
     }
     else
-        lcd.noBlink();
+        lcd->noBlink();
 
     String toPrint;
 
-    switch (motor.axis) {
+    switch (motor->axis) {
         case MotorInfo::Axis::X:
             toPrint = "X-Axis";
             break;
@@ -48,7 +49,7 @@ void AxisSelectMenu::update() {
 
     if (!toPrint.equals(lastPrint)) {
         clearLastPrint();
-        lcd.print(toPrint);
+        lcd->print(toPrint);
         lastPrint = toPrint;
     }
 }

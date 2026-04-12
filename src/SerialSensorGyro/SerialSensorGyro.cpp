@@ -1,13 +1,13 @@
 #include "SerialSensorGyro.h"
 
-SerialSensorGyro::SerialSensorGyro(WiFiUDP& udp) :
+SerialSensorGyro::SerialSensorGyro(WiFiUDP* udp) :
     udp(udp)
 {
 }
 
 void SerialSensorGyro::readFrame() {
     byte data[13];
-    udp.read(data, 13);
+    udp->read(data, 13);
 
     currentFrame.id = data[0];
 

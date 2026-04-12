@@ -1,6 +1,7 @@
-#include "MutliplierSelectMenu.h"
+#include "MultiplierSelectMenu.h"
+#include <MotorInfo.h>
 
-MultiplierSelectMenu::MultiplierSelectMenu(LiquidCrystal& lcd, MotorInfo& motor, Joystick& joystick) : 
+MultiplierSelectMenu::MultiplierSelectMenu(LiquidCrystal* lcd, MotorInfo* motor, Joystick* joystick) : 
     Menu(lcd, motor),
     joystick(joystick)
 {
@@ -8,36 +9,36 @@ MultiplierSelectMenu::MultiplierSelectMenu(LiquidCrystal& lcd, MotorInfo& motor,
 
 void MultiplierSelectMenu::init() {
     printMotorNum();
-    lcd.print("Multiplier:");
+    lcd->print("Multiplier:");
 }
 void MultiplierSelectMenu::update() {
-    if (joystick.getCurrentAction() == Joystick::Action::CLICK) 
+    if (joystick->getCurrentAction() == Joystick::Action::CLICK) 
         selected = !selected;
 
     if (selected) {
-        lcd.blink();
+        lcd->blink();
 
-        switch (joystick.getCurrentAction()) {
+        switch (joystick->getCurrentAction()) {
             case Joystick::Action::N:
                 selectedMultiplier = (selectedMultiplier + 1) % 9;
-                motor.multiplier = multipliers[selectedMultiplier];
+                motor->multiplier = multipliers[selectedMultiplier];
                 break;
             case Joystick::Action::S:
                 selectedMultiplier = (selectedMultiplier - 1) % 9;
-                motor.multiplier = multipliers[selectedMultiplier];
+                motor->multiplier = multipliers[selectedMultiplier];
                 break;
             default:
                 break;
         }
     }
     else
-        lcd.noBlink();
+        lcd->noBlink();
 
-    String toPrint = String(motor.multiplier) + "x";
+    String toPrint = String(motor->multiplier) + "x";
 
     if (!toPrint.equals(lastPrint)) {
         clearLastPrint();
-        lcd.print(toPrint);
+        lcd->print(toPrint);
         lastPrint = toPrint;
     }
 }

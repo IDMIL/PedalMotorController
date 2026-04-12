@@ -1,18 +1,17 @@
 #pragma once
 
-#include "Joystick.h"
+#include <Joystick.h>
 #include "Menu.h"
-#include "MotorInfo.h"
 
 class CurveSelectMenu : public Menu {
     public:
-        CurveSelectMenu(LiquidCrystal& lcd, MotorInfo& motor, Joystick& joystick);
+        CurveSelectMenu(LiquidCrystal* lcd, MotorInfo* motor, Joystick* joystick);
 
-        virtual void init();
-        virtual void update();
-        virtual bool isSelected();
+        void init() override;
+        void update() override;
+        bool isSelected() override;
         
     private:
-        Joystick& joystick;
+        Joystick* joystick;
         bool selected = false;
 };

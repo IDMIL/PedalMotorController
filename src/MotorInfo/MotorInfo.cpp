@@ -2,11 +2,19 @@
 
 #define sgn(x) (x < 0 ? -1 : 1)
 
-MotorInfo::MotorInfo(int motorNum, AccelStepper stepper, long maxSteps, SerialSensorGyro& ssg) :
+MotorInfo::MotorInfo(int motorNum, AccelStepper stepper, long maxSteps, SerialSensorGyro* ssg, LiquidCrystal* lcd, Joystick* joystick) :
     motorNum(motorNum),
     stepper(stepper),
     maxSteps(maxSteps),
-    ssg(ssg)
+    ssg(ssg),
+    lcd(lcd),
+    joystick(joystick),
+    stepperPositionMenu(lcd, this), 
+    stepperAngleMenu(lcd, this), 
+    axisSelectMenu(lcd, this, joystick), 
+    multiplierSelectMenu(lcd, this, joystick), 
+    curveSelectMenu(lcd, this, joystick),
+    menus{ &stepperPositionMenu, &stepperAngleMenu, &axisSelectMenu, &multiplierSelectMenu, &curveSelectMenu }
 {
 }
 
@@ -15,13 +23,13 @@ void MotorInfo::run() {
 
     switch (axis) {
         case MotorInfo::Axis::X:
-            gyroData = ssg.getX();
+            gyroData = ssg->getX();
             break;
         case MotorInfo::Axis::Y:
-            gyroData = ssg.getY();
+            gyroData = ssg->getY();
             break;
         case MotorInfo::Axis::Z:
-            gyroData = ssg.getZ();
+            gyroData = ssg->getZ();
             break;
     }
 

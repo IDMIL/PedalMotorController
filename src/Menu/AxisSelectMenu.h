@@ -1,18 +1,17 @@
 #pragma once
 
-#include "Joystick.h"
+#include <Joystick.h>
 #include "Menu.h"
-#include "MotorInfo.h"
 
 class AxisSelectMenu : public Menu {
     public:
-        AxisSelectMenu(LiquidCrystal& lcd, MotorInfo& motor, Joystick& joystick);
+        AxisSelectMenu(LiquidCrystal* lcd, MotorInfo* motor, Joystick* joystick);
 
-        virtual void init();
-        virtual void update();
-        virtual bool isSelected();
+        void init() override;
+        void update() override;
+        bool isSelected() override;
         
     private:
-        Joystick& joystick;
+        Joystick* joystick;
         bool selected = false;
 };
