@@ -7,32 +7,7 @@ CurveSelectMenu::CurveSelectMenu(LiquidCrystal* lcd, MotorInfo* motor, Joystick*
 {
 }
 
-void CurveSelectMenu::init() {
-    printMotorNum();
-    lcd->print("Curve Selection:");
-}
-
-void CurveSelectMenu::update() {
-    if (joystick->getCurrentAction() == Joystick::Action::CLICK) 
-        selected = !selected;
-
-    if (selected) {
-        lcd->blink();
-
-        switch (joystick->getCurrentAction()) {
-            case Joystick::Action::N:
-                motor->curve = (MotorInfo::Curve) (((int) motor->curve + 1) % 4);
-                break;
-            case Joystick::Action::S:
-                motor->curve = (MotorInfo::Curve) (((int) motor->curve - 1) % 4);
-                break;
-            default:
-                break;
-        }
-    }
-    else
-        lcd->noBlink();
-
+void CurveSelectMenu::printCurve() {
     String toPrint;
 
     switch (motor->curve) {
@@ -52,9 +27,39 @@ void CurveSelectMenu::update() {
 
     if (!toPrint.equals(lastPrint)) {
         clearLastPrint();
-        lcd->print(toPrint);
+        lcd->print(toPrint.c_str());
         lastPrint = toPrint;
     }
+}
+
+void CurveSelectMenu::init() {
+    printMotorNum();
+    lcd->print("Curve Selection:");
+    lastPrint = String("");
+}
+
+void CurveSelectMenu::update() {
+    if (selected) {
+        lcd->blink();
+
+        switch (joystick->getCurrentAction()) {
+            case Joystick::Action::S:
+                motor->curve = (MotorInfo::Curve) (((int) motor->curve + 1) % 4);
+                break;
+            case Joystick::Action::N:
+                if ((int) motor->curve == 0)
+                    motor->curve = (MotorInfo::Curve) 3;
+                else
+                    motor->curve = (MotorInfo::Curve) (((int) motor->curve - 1) % 4);
+                break;
+            default:
+                break;
+        }
+    }
+    else
+        lcd->noBlink();
+
+    printCurve();
 }
 
 bool CurveSelectMenu::isSelected() {

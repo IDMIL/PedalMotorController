@@ -1,5 +1,7 @@
 #include "MotorInfo.h"
 
+#include <Arduino.h>
+
 #define sgn(x) (x < 0 ? -1 : 1)
 
 MotorInfo::MotorInfo(int motorNum, AccelStepper stepper, long maxSteps, SerialSensorGyro* ssg, LiquidCrystal* lcd, Joystick* joystick) :
@@ -33,14 +35,25 @@ void MotorInfo::run() {
             break;
     }
 
-    long currentPosition = stepper.currentPosition();
-    float velocity = gyroData * multiplier;
-    long nextStep = currentPosition + sgn(velocity);
+    double velocity = gyroData * multiplier;
+    currentStep = stepper.currentPosition();
 
-    if (nextStep < 0 || nextStep > maxSteps)
-      stepper.setSpeed(0);
-    else
-      stepper.setSpeed(velocity); 
+    switch (curve) {
+        case Curve::LINEAR:
+            velocity = velocity;
+            break;
+        case Curve::EXPONENTIAL:
+            velocity = exp(gyroData); // omitting multiplier, since this (obviously...) grows really fast!
+            break;
+        case Curve::LOGARITHMIC:
+            if (velocity != 0) velocity = sgn(velocity) * log(abs(velocity));
+            break;
+        case Curve::QUADRATIC:
+            velocity = pow(velocity, 2);
+            break;
+    }
+
+    stepper.setSpeed(velocity); 
 
     stepper.runSpeed();
 }

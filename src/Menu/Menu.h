@@ -35,14 +35,23 @@ class Menu {
         virtual void update() { };
 
         /**
-         * Returns whether or not an element in the menu is selected.
-         * Not all menus are selectable, so this returns false by default. Selectable menus should
-         * redefine this function.
+         * Selects or deselects the current menu.
+         * Some menus may not need this logic.
          */
-        virtual bool isSelected() { return false; };
+        void toggleSelected() { selected = !selected; };
+
+        /**
+         * Returns whether or not the current menu is selected.
+         * This logic is also used for determining if a menu *is selectable*, so selectable menus
+         * should override this to return the selected field.
+         */
+        virtual bool isSelected() { return false; }
 
     protected:
         LiquidCrystal* lcd;
         MotorInfo* motor;
+
         String lastPrint;
+        
+        bool selected = false;
 };

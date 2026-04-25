@@ -7,32 +7,7 @@ AxisSelectMenu::AxisSelectMenu(LiquidCrystal* lcd, MotorInfo* motor, Joystick* j
 {
 }
 
-void AxisSelectMenu::init() {
-    printMotorNum();
-    lcd->print("Axis Selection:");
-}
-
-void AxisSelectMenu::update() {
-    if (joystick->getCurrentAction() == Joystick::Action::CLICK) 
-        selected = !selected;
-
-    if (selected) {
-        lcd->blink();
-
-        switch (joystick->getCurrentAction()) {
-            case Joystick::Action::N:
-                motor->axis = (MotorInfo::Axis) (((int) motor->axis + 1) % 3);
-                break;
-            case Joystick::Action::S:
-                motor->axis = (MotorInfo::Axis) (((int) motor->axis - 1) % 3);
-                break;
-            default:
-                break;
-        }
-    }
-    else
-        lcd->noBlink();
-
+void AxisSelectMenu::printAxis() {
     String toPrint;
 
     switch (motor->axis) {
@@ -52,6 +27,36 @@ void AxisSelectMenu::update() {
         lcd->print(toPrint);
         lastPrint = toPrint;
     }
+}
+
+void AxisSelectMenu::init() {
+    printMotorNum();
+    lcd->print("Axis Selection:");
+    lastPrint = String("");
+}
+
+void AxisSelectMenu::update() {
+    if (selected) {
+        lcd->blink();
+
+        switch (joystick->getCurrentAction()) {
+            case Joystick::Action::S:
+                motor->axis = (MotorInfo::Axis) (((int) motor->axis + 1) % 3);
+                break;
+            case Joystick::Action::N:
+                if ((int) motor->axis == 0)
+                    motor->axis = (MotorInfo::Axis) 2;
+                else
+                    motor->axis = (MotorInfo::Axis) (((int) motor->axis - 1) % 3);
+                break;
+            default:
+                break;
+        }
+    }
+    else
+        lcd->noBlink();
+
+    printAxis();
 }
 
 bool AxisSelectMenu::isSelected() {

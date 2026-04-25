@@ -7,24 +7,36 @@ MultiplierSelectMenu::MultiplierSelectMenu(LiquidCrystal* lcd, MotorInfo* motor,
 {
 }
 
+void MultiplierSelectMenu::printMultiplier() {
+    String toPrint = String(motor->multiplier) + "x";
+
+    if (!toPrint.equals(lastPrint)) {
+        clearLastPrint();
+        lcd->print(toPrint);
+        lastPrint = toPrint;
+    }
+}
+
 void MultiplierSelectMenu::init() {
     printMotorNum();
     lcd->print("Multiplier:");
+    lastPrint = String("");
 }
-void MultiplierSelectMenu::update() {
-    if (joystick->getCurrentAction() == Joystick::Action::CLICK) 
-        selected = !selected;
 
+void MultiplierSelectMenu::update() {
     if (selected) {
         lcd->blink();
 
         switch (joystick->getCurrentAction()) {
-            case Joystick::Action::N:
+            case Joystick::Action::S:
                 selectedMultiplier = (selectedMultiplier + 1) % 9;
                 motor->multiplier = multipliers[selectedMultiplier];
                 break;
-            case Joystick::Action::S:
-                selectedMultiplier = (selectedMultiplier - 1) % 9;
+            case Joystick::Action::N:
+                if (selectedMultiplier == 0)
+                    selectedMultiplier = 8;
+                else
+                    selectedMultiplier = (selectedMultiplier - 1) % 9;
                 motor->multiplier = multipliers[selectedMultiplier];
                 break;
             default:
@@ -34,13 +46,7 @@ void MultiplierSelectMenu::update() {
     else
         lcd->noBlink();
 
-    String toPrint = String(motor->multiplier) + "x";
-
-    if (!toPrint.equals(lastPrint)) {
-        clearLastPrint();
-        lcd->print(toPrint);
-        lastPrint = toPrint;
-    }
+    printMultiplier();
 }
 
 bool MultiplierSelectMenu::isSelected() {

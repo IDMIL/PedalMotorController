@@ -13,5 +13,5 @@ class AxisSelectMenu : public Menu {
         
     private:
         Joystick* joystick;
-        bool selected = false;
+        void printAxis();
 };
