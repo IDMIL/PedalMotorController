@@ -22,16 +22,13 @@ void SerialSensorGyro::readFrame() {
 }
 
 float SerialSensorGyro::getX() {
-    readFrame();
     return currentFrame.x;
 }
 
 float SerialSensorGyro::getY() {
-    readFrame();
     return currentFrame.y;
 }
 
 float SerialSensorGyro::getZ() {
-    readFrame();
     return currentFrame.z;
 }

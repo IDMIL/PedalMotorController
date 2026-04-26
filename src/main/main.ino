@@ -116,6 +116,9 @@ void loop() {
     if (udp.parsePacket()) {
         disconnectTimer.cancel();
 
+        // Always read the frame
+        ssg.readFrame();
+
         // Always run the motors while there's data
         for (MotorInfo& motor : motors)
             motor.run();

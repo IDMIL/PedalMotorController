@@ -8,7 +8,7 @@ MultiplierSelectMenu::MultiplierSelectMenu(LiquidCrystal* lcd, MotorInfo* motor,
 }
 
 void MultiplierSelectMenu::printMultiplier() {
-    String toPrint = String(motor->multiplier) + "x";
+    String toPrint = "x" + String(motor->multiplier / 1000) + (motor->multiplier != 0 ? "k" : "");
 
     if (!toPrint.equals(lastPrint)) {
         clearLastPrint();

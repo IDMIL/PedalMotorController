@@ -11,6 +11,8 @@ class SerialSensorGyro {
     public:
         SerialSensorGyro(WiFiUDP* udp);
 
+        void readFrame();
+
         float getX();
         float getY();
         float getZ();
@@ -27,8 +29,6 @@ class SerialSensorGyro {
             float y;
             float z;
         };
-
-        void readFrame();
 
         ByteFloat bf;
         SerialSensorGyroFrame currentFrame;
