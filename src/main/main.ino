@@ -77,8 +77,8 @@ bool onDisconnect(void*) {
 
 void setup() {
     // Serial
-    Serial.begin(BAUD_RATE);
-    while (!Serial);
+    // Serial.begin(BAUD_RATE);
+    // while (!Serial);
 
     Serial.println("PedalMotorController");
     Serial.println("Booting...\n");
@@ -140,7 +140,7 @@ void loop() {
             bool menuChanged = false;
 
             Joystick::Action action = joystick.getCurrentAction();
-            Serial.println(Joystick::actionToString(action).c_str());
+            // Serial.println(Joystick::actionToString(action).c_str());
 
             // 4 motors, 5 menus each
             // Right -> go to next motor
